@@ -2,6 +2,9 @@
 
 **Emoji Info** is a tool that extracts and analyzes emoji images to compute their **average color** and **visibility area**. It processes emojis, determines their dominant color based on non-transparent pixels, and calculates how much of the image is actually visible.
 
+> [!TIP]
+> If you only want the resulting data, it's free to use and contained in `emoji_list.json`
+
 ## Features
 
 - Extracts emojis and saves them as images
@@ -71,3 +74,6 @@ The script generates an `emoji_list.json` file resembling the following:
    - The **average RGB color**, considering only visible pixels.
    - The **area ratio**, measuring how much of the image is non-transparent.
 4. **Saves Data** – Outputs a JSON file with the processed results.
+
+> [!NOTE]
+> Emoji Info currently only supports Apple's family of emojis.
