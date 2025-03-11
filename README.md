@@ -9,6 +9,9 @@
 - Calculates the **visible area ratio** (0 to 1) based on transparency
 - Supports skipping image re-rendering for faster processing
 
+> [!TIP]
+> If you only want the resulting data, it's contained in `emoji_list.json`
+
 ## Installation
 
 Clone the repository and install dependencies:
@@ -68,3 +71,6 @@ The script generates an `emoji_list.json` file resembling the following:
    - The **average RGB color**, considering only visible pixels.
    - The **area ratio**, measuring how much of the image is non-transparent.
 4. **Saves Data** – Outputs a JSON file with the processed results.
+
+> [!NOTE]
+> Emoji Info currently only supports Apple's family of emojis.
