@@ -6,20 +6,30 @@ import random
 from render_emoji import render_emoji
 import os
 import sys
+import unicodedata
 from PIL import Image
 
-def get_average_rgb(image_path):
+def analyze_image(image_path):
     if not os.path.exists(image_path):
-        return None
+        return None, None
 
     with Image.open(image_path) as img:
-        img = img.convert("RGB")
+        img = img.convert("RGBA")
         pixels = list(img.getdata())
-        return tuple(sum(c) // len(pixels) for c in zip(*pixels))
+
+        total_pixels = len(pixels)
+        transparent_pixels = sum(1 for p in pixels if p[3] == 0)
+        area_ratio = 1 - (transparent_pixels / total_pixels)
+
+        channels = list(zip(*pixels))
+        avg_rgb = tuple(sum(channels[i]) // total_pixels for i in range(3))
+
+        return avg_rgb, area_ratio
 
 def generate_emoji_list():
     all_emojis = emoji.EMOJI_DATA
     emoji_list = []
+    seen_emojis = set()
 
     pictorial_categories = {
         'face', 'person', 'animal', 'food', 'plant', 'place',
@@ -50,7 +60,10 @@ def generate_emoji_list():
         if is_pictorial:
             shortcode = data.get('en', '')
             clean_name = shortcode.strip(':')
-            emoji_list.append({'emoji': emoji_char, 'name': clean_name})
+            normalized_emoji = unicodedata.normalize('NFC', emoji_char)
+            if normalized_emoji not in seen_emojis:
+                seen_emojis.add(normalized_emoji)
+                emoji_list.append({'emoji': normalized_emoji, 'name': clean_name})
 
     emoji_list.sort(key=lambda x: ord(x['emoji'][0]))
     return emoji_list
@@ -66,9 +79,10 @@ def save_emoji_list(emoji_list, filename='emoji_list.json', output_dir='emojis/'
         if not skip_render:
             render_emoji(emoji_char, output_path)
 
-        avg_rgb = get_average_rgb(output_path)
+        avg_rgb, area = analyze_image(output_path)
         emoji_item['rgb'] = avg_rgb
-        print(f"Processed {emoji_char}: RGB={avg_rgb}")
+        emoji_item['area'] = area
+        print(f"Processed {emoji_char}: RGB={avg_rgb}, Area Ratio={area}")
 
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(emoji_list, f, ensure_ascii=False, indent=2)
