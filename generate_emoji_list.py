@@ -18,11 +18,14 @@ def analyze_image(image_path):
         pixels = list(img.getdata())
 
         total_pixels = len(pixels)
-        transparent_pixels = sum(1 for p in pixels if p[3] == 0)
+        non_transparent_pixels = [p[:3] for p in pixels if p[3] > 0]
+        transparent_pixels = total_pixels - len(non_transparent_pixels)
         area_ratio = 1 - (transparent_pixels / total_pixels)
 
-        channels = list(zip(*pixels))
-        avg_rgb = tuple(sum(channels[i]) // total_pixels for i in range(3))
+        if non_transparent_pixels:
+            avg_rgb = tuple(sum(c) // len(non_transparent_pixels) for c in zip(*non_transparent_pixels))
+        else:
+            avg_rgb = (0, 0, 0)
 
         return avg_rgb, area_ratio
 
