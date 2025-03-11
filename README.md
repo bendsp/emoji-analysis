@@ -46,6 +46,7 @@ The script generates an `emoji_list.json` file resembling the following:
     "emoji": "☃️",
     "name": "snowman",
     "unicode": "U+2603 U+FE0F",
+    "hex": "#A4AEB5",
     "rgb": [164, 174, 181],
     "area": 0.631317138671875
   },
@@ -53,6 +54,7 @@ The script generates an `emoji_list.json` file resembling the following:
     "emoji": "☄️",
     "name": "comet",
     "unicode": "U+2604 U+FE0F",
+    "hex": "#E49C71",
     "rgb": [228, 156, 113],
     "area": 0.531829833984375
   },
@@ -60,6 +62,7 @@ The script generates an `emoji_list.json` file resembling the following:
     "emoji": "☎️",
     "name": "telephone",
     "unicode": "U+260E U+FE0F",
+    "hex": "#BC5350",
     "rgb": [188, 83, 80],
     "area": 0.8698272705078125
   }

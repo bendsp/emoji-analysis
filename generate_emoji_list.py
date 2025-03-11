@@ -87,9 +87,10 @@ def save_emoji_list(emoji_list, filename='emoji_list.json', output_dir='emojis/'
             render_emoji(emoji_char, output_path)
 
         avg_rgb, area = analyze_image(output_path)
+        emoji_item['hex'] = f"#{avg_rgb[0]:02X}{avg_rgb[1]:02X}{avg_rgb[2]:02X}" if avg_rgb else "#000000"
         emoji_item['rgb'] = avg_rgb
         emoji_item['area'] = area
-        print(f"Processed {emoji_char}: RGB={avg_rgb}, Area Ratio={area}")
+        print(f"Processed {emoji_char}: RGB={avg_rgb}, Hex={emoji_item['hex']}, Area Ratio={area}")
 
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(emoji_list, f, ensure_ascii=False, indent=2)
