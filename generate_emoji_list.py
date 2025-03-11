@@ -66,7 +66,11 @@ def generate_emoji_list():
             normalized_emoji = unicodedata.normalize('NFC', emoji_char)
             if normalized_emoji not in seen_emojis:
                 seen_emojis.add(normalized_emoji)
-                emoji_list.append({'emoji': normalized_emoji, 'name': clean_name})
+                emoji_list.append({
+                    'emoji': normalized_emoji,
+                    'name': clean_name,
+                    'unicode': ' '.join(f'U+{ord(c):04X}' for c in normalized_emoji)
+                })
 
     emoji_list.sort(key=lambda x: ord(x['emoji'][0]))
     return emoji_list
