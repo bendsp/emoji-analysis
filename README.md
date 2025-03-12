@@ -1,6 +1,6 @@
-# Emoji Info
+# Emoji Analysis
 
-**Emoji Info** is a tool that extracts and analyzes emoji images to compute their **average color** and **visibility area**. It processes emojis, determines their dominant color based on non-transparent pixels, and calculates how much of the image is actually visible.
+**Emoji Analysis** is a tool that extracts and analyzes emoji images to compute their **average color** and **visibility area**. It processes emojis, determines their dominant color based on non-transparent pixels, and calculates how much of the image is actually visible.
 
 > [!TIP]
 > If you only want the resulting data, it's free to use and contained in `emoji_list.json`
@@ -17,8 +17,8 @@
 Clone the repository and install dependencies:
 
 ```sh
-git clone https://github.com/bendsp/emoji-info.git
-cd emoji-info
+git clone https://github.com/bendsp/emoji-analysis.git
+cd emoji-analysis
 pip install -r requirements.txt
 ```
 
@@ -79,4 +79,4 @@ The script generates an `emoji_list.json` file resembling the following:
 4. **Saves Data** – Outputs a JSON file with the processed results.
 
 > [!NOTE]
-> Emoji Info currently only supports Apple's family of emojis.
+> Emoji Analysis currently only supports Apple's family of emojis.
